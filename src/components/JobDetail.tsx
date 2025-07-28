@@ -135,7 +135,7 @@ export const JobDetail = ({ job, onBack }: JobDetailProps) => {
                   <Badge 
                     key={index}
                     variant="secondary"
-                    className={index === 0 ? "bg-warning/20 text-warning-foreground" : "bg-accent/20 text-accent-foreground"}
+                    className={index === 0 ? "bg-yellow-100 text-yellow-800 rounded-full text-xs px-3 py-1 font-medium" : "bg-green-100 text-green-800 rounded-full text-xs px-3 py-1 font-medium"}
                   >
                     {category}
                   </Badge>
