@@ -1,21 +1,24 @@
 # Job Listing Application
 
-This project is built using **React**, and **Tailwind CSS**. The goal is to design and develop a responsive and accessible job listing dashboard, featuring individual job cards and a detailed job description view, based on a given UI reference.
+This is a modern, responsive **Job Listing Dashboard** built with **Next.js**, **React**, **Tailwind CSS**, and **TypeScript**. The goal is to replicate a detailed job listing and description interface based on a Figma UI design. It features dynamic job data, clean navigation, and design precision.
 
 ---
 
-##  What I Implemented
+##  What We Implemented
 
-- Created a **JobCard** React component closely matching the provided design.
-- Used dummy JSON data to populate each job listing.
-- Integrated avatar images for each job (as shown in the design).
-- Built the full job listing dashboard with Tailwind CSS styling.
-- Included a separate view for job descriptions with a clean layout.
-- Followed all UI and layout instructions from the provided Figma design.
+*  **Job Cards UI:** Reusable `JobCard` components styled to match the design exactly.
+*  **Job Detail Page:** Built with proper layout, icons, fonts, and spacing following the reference.
+*  **Icon Styling:** All icons are consistently styled using blue as specified in the design.
+*  **Back Navigation:** A visible back button allows users to return from the job detail page.
+*  **Section Dividers:** Clean horizontal separators between “About”, “Categories”, and “Required Skills”.
+*  **Ideal Candidate Block:** Correct layout and styling for candidate traits, age, and gender.
+*  **Mobile Responsive:** Fully responsive layout optimised for different screen sizes.
+*  **Radix UI Dropdowns:** Integrated dropdown filter using Radix UI for category/tag filtering.
+*  **Static JSON Data:** Populated job listings using local JSON for simulation.
 
 ---
 
-## 🖼️ Screenshots
+##  Screenshots
 
 ### 📌 Job Listing View
 
@@ -29,25 +32,24 @@ This project is built using **React**, and **Tailwind CSS**. The goal is to desi
 
 ---
 
-## 🛠️ Built With
+## 🛠️ Tech Stack
 
-- **React**
-- **Tailwind CSS**
-- **TypeScript**
-- **Radix UI (Select)** for dropdown filtering
+* ⚛️ **Next.js** (React Framework)
+* 🎨 **Tailwind CSS** (Utility-first CSS)
+* 🔠 **TypeScript** (Typed JavaScript)
+* 🧩 **Radix UI** (Accessible UI components)
+* 📁 **Local JSON** (Mock job data)
 
 ---
 
-##  How to Run the Project
-
-Follow these steps to run the project locally:
+## 🚀 How to Run This Project
 
 1. **Clone the Repository**
 
 ```bash
 git clone https://github.com/Fenet-damena/job-listing-application.git
 cd job-listing-application
-````
+```
 
 2. **Install Dependencies**
 
@@ -55,16 +57,18 @@ cd job-listing-application
 npm install
 ```
 
-3. **Run the Development Server**
+3. **Start the Dev Server**
 
 ```bash
 npm run dev
 ```
 
-4. Open your browser and go to [http://localhost:3000](http://localhost:3000)
+4. **Open in Your Browser**
+
+[http://localhost:3000](http://localhost:3000)
 
 ---
 
-### 👩 Author
+## 👩‍💻 Author
 
 **Fenet Damena**
