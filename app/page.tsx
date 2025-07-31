@@ -1,24 +1,24 @@
 'use client';
 
 import JobCard from './components/JobCard';
-import jobData from '@/data/jobs.json';
+import useJobs from '@/hooks/useJobs';
 import { useState } from 'react';
 
 export default function HomePage() {
+  const { jobs, loading, error } = useJobs();
   const [sortBy, setSortBy] = useState('Most relevant');
+
+  if (loading) return <p className="text-center mt-10">Loading jobs...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">Error: {error}</p>;
 
   return (
     <main className="p-6 max-w-5xl mx-auto space-y-6">
-      {/* Top Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-gray-900">Opportunities</h1>
-          <p className="text-sm text-gray-500">
-            Showing {jobData.job_postings.length} results
-          </p>
+          <p className="text-sm text-gray-500">Showing {jobs.length} results</p>
         </div>
 
-        {/* Sort Dropdown */}
         <div className="flex items-center gap-2">
           <label htmlFor="sort" className="text-sm text-gray-600 font-medium">
             Sort by:
@@ -36,10 +36,21 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Job Cards */}
       <div className="grid gap-5">
-        {jobData.job_postings.map((job, index) => (
-          <JobCard key={index} job={job} />
+        {jobs.map((job) => (
+          <JobCard
+            key={job.id}
+            job={{
+              title: job.title,
+              company: job.orgName,
+              about: {
+                location: job.location[0] || 'N/A',
+                categories: job.categories || [],
+              },
+              description: job.description,
+              image: job.logoUrl,
+            }}
+          />
         ))}
       </div>
     </main>

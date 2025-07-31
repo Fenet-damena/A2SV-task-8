@@ -1,169 +1,165 @@
-"use client";
+'use client';
 
-import { Card } from "../components/ui/card";
-import { Badge } from "../components/ui/badge";
-import { MapPin, Calendar, Clock, CheckCircle } from "lucide-react";
-import BackButton from "../components/ui/BackButton";
-import { Job } from "@/types/jobs";
+import { CheckCircle, Calendar, Clock, MapPin } from 'lucide-react';
 
 interface JobDetailUIProps {
-  job: Job;
+  job: {
+    id: string;
+    title: string;
+    orgName: string;
+    description: string;
+    responsibilities: string;  // multiline string
+    idealCandidate: string;     // multiline string
+    whenAndWhere: string;
+    logoUrl: string;
+    location: string[];
+    categories: string[];
+    requiredSkills: string[];
+    startDate: string;
+    endDate: string;
+    datePosted: string;
+    deadline: string;
+  };
 }
 
 export default function JobDetailUI({ job }: JobDetailUIProps) {
+  // Convert responsibilities string to array
+  const responsibilitiesList = job.responsibilities
+    ? job.responsibilities.split('\n').filter(Boolean)
+    : [];
+
+  // Convert idealCandidate string to array
+  const idealCandidateList = job.idealCandidate
+    ? job.idealCandidate.split('\n').filter(Boolean)
+    : [];
+
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-6xl mx-auto px-4 py-6">
-        <BackButton className="mb-4" />
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-6">
+          <img
+            src={job.logoUrl || '/default-logo.png'}
+            alt={`${job.orgName} logo`}
+            className="w-16 h-16 object-cover rounded-full"
+          />
+          <div>
+            <h1 className="text-3xl font-extrabold text-gray-900">{job.title}</h1>
+            <p className="text-gray-700 text-lg">{job.orgName}</p>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-3">
-            {/* Description */}
-            <Card className="p-6 border-none shadow-none">
-              <h2 className="text-2xl font-extrabold text-gray-900 mb-3">
-                Description
-              </h2>
-              <p className="text-gray-800 text-[16px] leading-relaxed">
-                {job.description}
-              </p>
-            </Card>
+        {/* Description */}
+        <section className="mb-6">
+          <h2 className="text-2xl font-bold mb-2">Description</h2>
+          <p className="text-gray-800 leading-relaxed">{job.description}</p>
+        </section>
 
-            {/* Responsibilities */}
-            <Card className="p-6 border-none shadow-none">
-              <h2 className="text-2xl font-extrabold text-gray-900 mb-3">
-                Responsibilities
-              </h2>
-              <ul className="space-y-3">
-                {job.responsibilities.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-  <span className="w-4 h-4 mt-1 shrink-0 text-teal-500">
-    <CheckCircle className="w-full h-full" />
-  </span>
-  <span className="text-gray-800 text-[16px]">{item}</span>
-</li>
-
-                ))}
-              </ul>
-            </Card>
-
-            {/* Ideal Candidate */}
-            <Card className="p-6 border-none shadow-none">
-              <h2 className="text-2xl font-extrabold text-gray-900 mb-3">
-                Ideal Candidate we want
-              </h2>
-              <ul className="space-y-3 text-gray-800 text-[16px] list-disc ml-6">
-                <li className="font-bold">
-                  Young (18–24 year old) Female social media manager
+        {/* Responsibilities */}
+        <section className="mb-6">
+          <h2 className="text-2xl font-bold mb-2">Responsibilities</h2>
+          <ul className="list-disc list-inside space-y-1">
+            {responsibilitiesList.length > 0 ? (
+              responsibilitiesList.map((item, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-teal-500 mt-1 flex-shrink-0" />
+                  <span>{item}</span>
                 </li>
-                {job.ideal_candidate.traits.map((trait, index) => (
-                  <li key={index} className="leading-relaxed">
-                    <span className="font-semibold">
-                      {trait.split(":")[0]}:
-                    </span>
-                    <span> {trait.split(":").slice(1).join(":")}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+              ))
+            ) : (
+              <p className="text-gray-600 italic">No responsibilities listed.</p>
+            )}
+          </ul>
+        </section>
 
-            {/* When & Where */}
-            <Card className="p-6 border-none shadow-none">
-              <h2 className="text-2xl font-extrabold text-gray-900 mb-3">
-                When & Where
-              </h2>
-              <div className="flex items-start gap-3 text-gray-800 text-[16px]">
-                <MapPin className="w-5 h-5 text-blue-600 mt-1" />
-                <p>{job.when_where}</p>
+        {/* Ideal Candidate */}
+        <section className="mb-6">
+          <h2 className="text-2xl font-bold mb-2">Ideal Candidate</h2>
+          <ul className="list-disc list-inside space-y-1">
+            {idealCandidateList.length > 0 ? (
+              idealCandidateList.map((item, i) => <li key={i}>{item}</li>)
+            ) : (
+              <p className="text-gray-600 italic">No ideal candidate info provided.</p>
+            )}
+          </ul>
+        </section>
+
+        {/* When & Where */}
+        <section className="mb-6 flex items-center gap-2 text-gray-700">
+          <MapPin className="w-5 h-5 text-blue-600" />
+          <p>{job.whenAndWhere || (job.location && job.location.join(', ')) || 'Location not specified'}</p>
+        </section>
+
+        {/* Sidebar Info */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+          {/* Dates */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-gray-700">
+              <Calendar className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-gray-500">Start Date</p>
+                <p>{new Date(job.startDate).toLocaleDateString()}</p>
               </div>
-            </Card>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <Calendar className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-gray-500">End Date</p>
+                <p>{new Date(job.endDate).toLocaleDateString()}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <Calendar className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-gray-500">Posted On</p>
+                <p>{new Date(job.datePosted).toLocaleDateString()}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              <Clock className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-gray-500">Deadline</p>
+                <p>{new Date(job.deadline).toLocaleDateString()}</p>
+              </div>
+            </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* About */}
-            <Card className="p-6 border-none shadow-none">
-              <h3 className="text-xl font-bold mb-5 text-gray-900">About</h3>
-              <ul className="space-y-5 text-sm text-gray-800">
-                <li className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-blue-600 mt-1" />
-                  <div>
-                    <p className="text-gray-500">Posted On</p>
-                    <p className="font-medium">{job.about.posted_on}</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Clock className="w-5 h-5 text-blue-600 mt-1" />
-                  <div>
-                    <p className="text-gray-500">Deadline</p>
-                    <p className="font-medium">{job.about.deadline}</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-blue-600 mt-1" />
-                  <div>
-                    <p className="text-gray-500">Location</p>
-                    <p className="font-medium">{job.about.location}</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-blue-600 mt-1" />
-                  <div>
-                    <p className="text-gray-500">Start Date</p>
-                    <p className="font-medium">{job.about.start_date}</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Calendar className="w-5 h-5 text-blue-600 mt-1" />
-                  <div>
-                    <p className="text-gray-500">End Date</p>
-                    <p className="font-medium">{job.about.end_date}</p>
-                  </div>
-                </li>
-              </ul>
-            </Card>
-
-            <div className="border-t border-gray-400 w-full" />
-
-            {/* Categories */}
-            <Card className="p-6 border-none shadow-none">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Categories</h3>
-              <div className="flex flex-wrap gap-2">
-                {job.about.categories.map((category, i) => {
-                  const colorClasses = [
-                    "bg-yellow-100 text-yellow-800",
-                    "bg-green-100 text-green-800",
-                    "bg-purple-100 text-purple-800",
-                    "bg-blue-100 text-blue-800",
-                  ];
-
-                  const badgeColor = colorClasses[i % colorClasses.length];
-
-                  return (
-                    <Badge key={i} variant="secondary" className={badgeColor}>
-                      {category}
-                    </Badge>
-                  );
-                })}
-              </div>
-            </Card>
-
-            <div className="border-t border-gray-400 w-full" />
-
-            {/* Required Skills */}
-            <Card className="p-6 border-none shadow-none">
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Required Skills</h3>
-              <div className="flex flex-wrap gap-2">
-                {job.about.required_skills.map((skill, i) => (
-                  <Badge
+          {/* Categories */}
+          <div>
+            <h3 className="text-xl font-bold mb-2">Categories</h3>
+            <div className="flex flex-wrap gap-2">
+              {job.categories && job.categories.length > 0 ? (
+                job.categories.map((category, i) => (
+                  <span
                     key={i}
-                    className="bg-gray-100 text-purple-600 font-medium px-3 py-1 rounded-md"
+                    className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full"
+                  >
+                    {category}
+                  </span>
+                ))
+              ) : (
+                <p className="text-gray-600 italic">No categories specified.</p>
+              )}
+            </div>
+          </div>
+
+          {/* Required Skills */}
+          <div>
+            <h3 className="text-xl font-bold mb-2">Required Skills</h3>
+            <div className="flex flex-wrap gap-2">
+              {job.requiredSkills && job.requiredSkills.length > 0 ? (
+                job.requiredSkills.map((skill, i) => (
+                  <span
+                    key={i}
+                    className="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full"
                   >
                     {skill}
-                  </Badge>
-                ))}
-              </div>
-            </Card>
+                  </span>
+                ))
+              ) : (
+                <p className="text-gray-600 italic">No required skills listed.</p>
+              )}
+            </div>
           </div>
         </div>
       </div>

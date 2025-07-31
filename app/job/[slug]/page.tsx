@@ -1,16 +1,18 @@
-import JobDetailUI from "../../components/JobDetailUI";
-import jobs from "@/data/jobs.json";
-import { Job } from "@/types/jobs";
+import JobDetailUI from '../../components/JobDetailUI';
+import useJobs from '@/hooks/useJobs';
 
 type PageProps = {
-  params: {
-    slug: string;
-  };
+  params: { slug: string };
 };
 
 export default function JobPage({ params }: PageProps) {
-  const job: Job | undefined = jobs.job_postings.find(
-    (job) => job.title.toLowerCase().replace(/\s+/g, "-") === params.slug
+  const { jobs, loading, error } = useJobs();
+
+  if (loading) return <p className="text-center mt-10">Loading job...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
+
+  const job = jobs.find(
+    (job) => job.title.toLowerCase().replace(/\s+/g, '-') === params.slug
   );
 
   if (!job) {
