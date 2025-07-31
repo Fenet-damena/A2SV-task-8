@@ -1,7 +1,8 @@
 'use client';
 
 import JobCard from './components/JobCard';
-import useJobs from '@/hooks/useJobs';
+import { useJobs } from '@/hooks/useJobs';
+
 import { useState } from 'react';
 
 export default function HomePage() {

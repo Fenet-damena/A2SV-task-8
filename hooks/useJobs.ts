@@ -1,51 +1,57 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 
 export interface Job {
   id: string;
   title: string;
+  orgName: string;
   description: string;
   responsibilities: string;
-  requirements: string;
   idealCandidate: string;
+  whenAndWhere: string;
+  logoUrl: string;
+  location: string[];
   categories: string[];
-  opType: string;
+  requiredSkills: string[];
   startDate: string;
   endDate: string;
-  deadline: string;
-  location: string[];
-  requiredSkills: string[];
-  whenAndWhere: string;
-  orgName: string;
-  logoUrl: string;
-  orgEmail: string;
-  orgWebsite: string;
   datePosted: string;
+  deadline: string;
 }
 
-export default function useJobs() {
+export function useJobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('https://akil-backend.onrender.com/opportunities/search')
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch jobs');
-        return res.json();
-      })
-      .then((data) => {
-        if (data && Array.isArray(data)) {
+    async function fetchJobs() {
+      try {
+        const res = await fetch('https://akil-backend.onrender.com/opportunities/search');
+        if (!res.ok) throw new Error(`Failed to fetch jobs: ${res.statusText}`);
+
+        const json = await res.json();
+
+        // Check if json.data is an array or single object
+        const data = json.data;
+        if (Array.isArray(data)) {
           setJobs(data);
-        } else if (data && data.data && Array.isArray(data.data)) {
-          setJobs(data.data); // if response is wrapped inside a data property
+        } else if (data) {
+          setJobs([data]);
         } else {
-          throw new Error('Invalid data format from API');
+          setJobs([]);
         }
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('Unknown error occurred');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchJobs();
   }, []);
 
   return { jobs, loading, error };
