@@ -31,7 +31,6 @@ export function useJobs() {
 
         const json = await res.json();
 
-        // Check if json.data is an array or single object
         const data = json.data;
         if (Array.isArray(data)) {
           setJobs(data);
