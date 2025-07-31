@@ -66,7 +66,7 @@ export default function JobDetailUI({ job }: JobDetailUIProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="w-full lg:w-1/3 space-y-8 pl-6 lg:pl-10 border-l border-gray-200">
+        <div className="w-full lg:w-1/3 space-y-8 pl-10">
           {/* About Section */}
           <div className="space-y-5">
             <h3 className="text-xl font-bold text-gray-900">About</h3>
@@ -109,7 +109,7 @@ export default function JobDetailUI({ job }: JobDetailUIProps) {
             </ul>
           </div>
 
-          <hr className="my-4 border-gray-300" />
+          <div className="h-1" />
 
           {/* Categories Section */}
           <div>
@@ -126,7 +126,7 @@ export default function JobDetailUI({ job }: JobDetailUIProps) {
             </div>
           </div>
 
-          <hr className="my-4 border-gray-300" />
+          <div className="h-1" />
 
           {/* Required Skills Section */}
           <div>
