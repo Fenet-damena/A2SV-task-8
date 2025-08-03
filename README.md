@@ -67,7 +67,7 @@ User-friendly login form with error handling.
 1. **Clone the Repository**
 
 ```bash
-git clone https://github.com/Fenet-damena/job-listing-application.git
+git clone https://github.com/Fenet-damena/A2SV-task-8
 cd job-listing-application
 ````
 
