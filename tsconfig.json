@@ -7,8 +7,11 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
+    "types": ["next-auth"],
     "esModuleInterop": true,
     "module": "esnext",
+        "typeRoots": ["./types", "./node_modules/@types"]
+,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -25,6 +28,7 @@
     ]
   },
   "include": [
+    "types",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
