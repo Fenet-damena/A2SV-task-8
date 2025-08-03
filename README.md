@@ -12,21 +12,42 @@ This is a modern, responsive **Job Listing Dashboard** built with **Next.js**, *
 * **Mobile Responsive:** Fully responsive layout optimised for different screen sizes.  
 * **API Data Integration:** Job listings and details are dynamically fetched from the remote API endpoint (`https://akil-backend.onrender.com/opportunities/search`) using the native JavaScript `fetch` API.  
 * **Dynamic Routing:** Implemented dynamic routes for detailed job pages based on job IDs fetched via `fetch`.  
-
-
----
-
-## Screenshots
-
-### 📌 Job Listing View
-
-![Job List](./public/job-list.png)
+* **Authentication System:** Built complete authentication flow with NextAuth — Sign Up, Sign In, and Email Verification — using API integration.
 
 ---
 
-### 📌 Job Description View
+## 🔐 Authentication Screenshots
 
-![Job Description](./public/job-description.png)
+### 📥 Sign Up Page
+A clean form for creating a new account, supporting both email and Google signup.
+
+![Sign Up](./public/screenshots/signup.png)
+
+---
+### ✅ Email Verification Page
+
+
+![Verify Email](./public/screenshots/verify-email.png)
+
+---
+
+### 🔐 Sign In Page
+User-friendly login form with error handling.
+
+![Sign In](./public/screenshots/signin.png)
+
+---
+
+
+## 📌 Job Listing View
+
+![Job List](./public/screenshots/job-list.png)
+
+---
+
+## 📋 Job Description View
+
+![Job Description](./public/screenshots/job-description.png)
 
 ---
 
@@ -37,6 +58,7 @@ This is a modern, responsive **Job Listing Dashboard** built with **Next.js**, *
 * 🔠 **TypeScript** (Typed JavaScript)  
 * 🧩 **Radix UI** (Accessible UI components)  
 * 📡 **API Integration** (Remote job listings API via `fetch`)
+* 🔐 **NextAuth.js** (Authentication via credentials and Google OAuth)
 
 ---
 
@@ -70,4 +92,7 @@ npm run dev
 ## 👩‍💻 Author
 
 **Fenet Damena**
+
+```
+
 

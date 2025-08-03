@@ -91,7 +91,7 @@ const VerifyEmail = () => {
         </div>
 
         <p className="text-center text-[14px] text-[#7C8493]">
-          You can request to Resend code in <span className="font-semibold">0:30</span>
+          You can request to Resend code in <span className="font-semibold">0:20</span>
         </p>
 
         <button
